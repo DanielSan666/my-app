@@ -1,0 +1,51 @@
+.bm-burger-button {
+    position: fixed;
+    width: 36px;
+    height: 30px;
+    left: 36px;
+    top: 36px;
+}
+
+.bm-burger-bars {
+    background: #373a47;
+}
+
+.bm-menu {
+    background: #373a47;
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+}
+
+
+
+.bm-item {
+    display: block;
+    color: #d1d1d1;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.bm-item:hover {
+    color: white;
+}
+
+.page-wrap {
+    padding-left: 250px; /* Adjust this value depending on the width of your menu */
+}
+
+.logout-button {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    display: block;
+    width: 100%;
+    margin-top: auto;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.logout-button:hover {
+    background: #ff1a1a;
+}
