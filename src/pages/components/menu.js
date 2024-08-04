@@ -7,7 +7,7 @@ import '../../menu.css';
 function NavigationMenu() {
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:5000/api/logout', {}, { withCredentials: true });
+            await axios.post('https://backend-alpha-five-60.vercel.app/api/logout', {}, { withCredentials: true });
             // Redirige al usuario a la página de login después de cerrar sesión
             window.location.href = '/login';
         } catch (error) {
