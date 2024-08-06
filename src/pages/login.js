@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import '../login.css';  // Asegúrate de crear y enlazar este archivo CSS
+import '../login.css';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -13,7 +13,7 @@ function Login() {
         event.preventDefault();
 
         try {
-            const response = await axios.post('https://backend-alpha-five-60.vercel.app/api/login', { email, password }, { withCredentials: true });
+            const response = await axios.post('http://localhost:5000/api/login', { email, password }, { withCredentials: true });
             if (response.data.token) {
                 Swal.fire({
                     icon: 'success',

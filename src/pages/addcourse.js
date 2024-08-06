@@ -19,7 +19,7 @@ function AddCourse({ onCourseAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://backend-alpha-five-60.vercel.app/api/courses', formData, {
+      const response = await axios.post('http://localhost:5000/api/courses', formData, {
         withCredentials: true // Esto permite el uso de cookies si es necesario
       });
       onCourseAdded(response.data);

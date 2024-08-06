@@ -2,16 +2,29 @@ import React from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import '../../menu.css';
 
 function NavigationMenu() {
     const handleLogout = async () => {
         try {
-            await axios.post('https://backend-alpha-five-60.vercel.app/api/logout', {}, { withCredentials: true });
-            // Redirige al usuario a la página de login después de cerrar sesión
-            window.location.href = '/login';
+            await axios.post('http://localhost:5000/api/logout', {}, { withCredentials: true });
+            Swal.fire({
+                icon: 'success',
+                title: 'Logged Out',
+                text: 'You have successfully logged out.',
+                timer: 2000,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = '/login';
+            });
         } catch (error) {
             console.error('Logout failed:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Logout Failed',
+                text: 'There was an issue logging out. Please try again.',
+            });
         }
     };
 
@@ -23,9 +36,7 @@ function NavigationMenu() {
             <Link className="menu-item" to="/profile">
                 Profile
             </Link>
-            <Link className="menu-item" to="/register">
-                Register
-            </Link>
+            
             <button className="menu-item logout-button" onClick={handleLogout}>
                 Logout
             </button>

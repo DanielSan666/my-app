@@ -1,89 +1,62 @@
-/* Estilos generales para el contenedor principal */
-.home-container {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  /* Estilos para el título principal */
-  .home-container h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  /* Estilos para el menú de navegación */
-  .home-container nav ul {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-  }
-  
-  .home-container nav ul li {
-    display: inline;
-    margin: 0 10px;
-  }
-  
-  .home-container nav ul li a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-  }
-  
-  .home-container nav ul li a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Estilos para la sección de cursos */
-  .course-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .course-list li {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    max-width: 300px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-  }
-  
-  .course-list img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
-    margin-top: 10px;
-  }
-  
-  .course-list h3 {
-    color: #333;
-    margin: 10px 0;
-  }
-  
-  .course-list p {
-    color: #555;
-  }
-  
-  /* Estilos para el botón de añadir curso */
-  .add-course-button {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #28a745;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .add-course-button:hover {
-    background-color: #218838;
-  }
-  
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background: #333;
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.main-content {
+  margin-left: 220px;
+  padding: 20px;
+}
+
+.courses-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.course-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  cursor: pointer;
+}
+
+.course-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.2em;
+}
+
+.course-card p {
+  margin: 0;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
