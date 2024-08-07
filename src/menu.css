@@ -19,6 +19,7 @@
 
 
 .bm-item {
+    padding: 0.8em;
     display: block;
     color: #d1d1d1;
     text-decoration: none;
@@ -34,18 +35,14 @@
 }
 
 .logout-button {
-    background: #ff4d4d;
-    color: white;
+    background-color: #ff5f56;
     border: none;
     padding: 10px;
-    text-align: center;
-    display: block;
-    width: 100%;
-    margin-top: auto;
+    color: white;
     cursor: pointer;
-    font-size: 1em;
+    margin-top: auto; /* Push the button to the bottom */
 }
 
 .logout-button:hover {
-    background: #ff1a1a;
+    background-color: #e04e3b;
 }

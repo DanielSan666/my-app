@@ -10,6 +10,7 @@ const Home = () => {
   const [courses, setCourses] = useState([]);
   const [userRole, setUserRole] = useState('');
   const [loading, setLoading] = useState(true);
+  const [accessDenied, setAccessDenied] = useState(false); // Nuevo estado para manejar acceso denegado
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,6 +33,9 @@ const Home = () => {
         setUserRole(response.data.role);
       } catch (error) {
         console.error('Error fetching user profile:', error);
+        if (error.response && error.response.status === 401) {
+          setAccessDenied(true); // Establecer acceso denegado si el estado es 401
+        }
       } finally {
         setLoading(false);
       }
@@ -51,11 +55,13 @@ const Home = () => {
 
   if (loading) return <p>Loading...</p>;
 
+  if (accessDenied) return <p>Acceso Denegado. Favor de verificar credenciales.</p>; // Mostrar mensaje de acceso denegado
+
   return (
     <div>
       <Menu />
       <div className="main-content">
-        <h2>Courses</h2>
+        <h2>Cursos</h2>
         {courses.length > 0 ? (
           <div className="courses-grid">
             {courses.map(course => (
@@ -70,10 +76,10 @@ const Home = () => {
             ))}
           </div>
         ) : (
-          <p>No courses available.</p>
+          <p>Cursos no disponibles.</p>
         )}
         {userRole === 'admin' && (
-          <button onClick={handleAddCourse}>Add Course</button>
+          <button onClick={handleAddCourse}>Agregar Curso</button>
         )}
       </div>
     </div>

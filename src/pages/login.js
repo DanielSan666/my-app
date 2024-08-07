@@ -19,8 +19,11 @@ function Login() {
                     icon: 'success',
                     title: 'Login Successful',
                     text: 'You have successfully logged in!',
+                    showConfirmButton: false,
+                    timer: 2000,
+                }).then(() => {
+                    navigate('/home');
                 });
-                navigate('/home');
             }
         } catch (error) {
             Swal.fire({
@@ -34,26 +37,26 @@ function Login() {
     return (
         <div className="container">
             <div className="card">
-                <h1 className="title">Login</h1>
+                <h1 className="title">Inicio de sesión</h1>
                 <form onSubmit={handleSubmit}>
                     <input
                         type="email"
-                        placeholder="Email"
+                        placeholder="Correo electrónico"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="input"
                     />
                     <input
                         type="password"
-                        placeholder="Password"
+                        placeholder="Contraseña"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="input"
                     />
                     <div className="buttonContainer">
-                        <button type="submit" className="button">Login</button>
+                        <button type="submit" className="button">Iniciar sesion</button>
                         <div className="buttonSpacer">
-                            <button type="button" className="button" onClick={() => navigate('/register')}>Register</button>
+                            <button type="button" className="button" onClick={() => navigate('/register')}>Registrarse</button>
                         </div>
                     </div>
                 </form>

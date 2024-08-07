@@ -53,10 +53,10 @@ function Register() {
 
   return (
     <div className="register-form">
-      <h2>Register</h2>
+      <h2>Registrarse</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username">Nombre de Usuario:</label>
           <input
             type="text"
             id="username"
@@ -67,7 +67,7 @@ function Register() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Correo Electrónico:</label>
           <input
             type="email"
             id="email"
@@ -78,7 +78,7 @@ function Register() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Contraseña:</label>
           <input
             type="password"
             id="password"

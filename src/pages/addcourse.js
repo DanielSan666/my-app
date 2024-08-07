@@ -1,13 +1,16 @@
-// src/components/AddCourse.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Swal from 'sweetalert2'; // Ensure SweetAlert2 is imported
+import Swal from 'sweetalert2';
+import './AddCourse.css';
 
 function AddCourse({ onCourseAdded }) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     duration: '',
+    amount: '',
   });
 
   const handleChange = (e) => {
@@ -24,31 +27,41 @@ function AddCourse({ onCourseAdded }) {
         withCredentials: true
       });
       if (onCourseAdded) {
-        onCourseAdded(response.data); // Call the function if it's provided
+        onCourseAdded(response.data);
       }
-      setFormData({ title: '', description: '', duration: '' }); // Reset form
+      setFormData({ title: '', description: '', duration: '', amount: '' });
 
       Swal.fire({
         title: 'Course Added!',
         text: 'The course has been successfully registered.',
         icon: 'success',
-        confirmButtonText: 'OK'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = '/home'; // Redirect to home page
-        }
+        showConfirmButton: false,
+        timer: 1500
+      }).then(() => {
+        navigate('/home'); // Redirect to home page
       });
     } catch (error) {
       console.error('Error creating course:', error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'There was an issue creating the course.',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
   };
 
+  const handleGoHome = () => {
+    navigate('/home');
+  };
+
   return (
-    <div>
-      <h2>Add a New Course</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Title:</label>
+    <div className="add-course-container">
+      <h2>Agregar Nuevo Curso</h2>
+      <form onSubmit={handleSubmit} className="add-course-form">
+        <div className="form-group">
+          <label htmlFor="title">Nombre:</label>
           <input
             type="text"
             id="title"
@@ -57,8 +70,8 @@ function AddCourse({ onCourseAdded }) {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="description">Description:</label>
+        <div className="form-group">
+          <label htmlFor="description">Descripción:</label>
           <input
             type="text"
             id="description"
@@ -67,8 +80,8 @@ function AddCourse({ onCourseAdded }) {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="duration">Duration:</label>
+        <div className="form-group">
+          <label htmlFor="duration">Duración (Horas):</label>
           <input
             type="number"
             id="duration"
@@ -77,8 +90,20 @@ function AddCourse({ onCourseAdded }) {
             onChange={handleChange}
           />
         </div>
-    
-        <button type="submit">Add Course</button>
+        <div className="form-group">
+          <label htmlFor="amount">Precio del Curso:</label>
+          <input
+            type="number"
+            id="amount"
+            name="amount"
+            value={formData.amount}
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit" className="submit-button">Agregar Curso</button>
+        <button type="button" className="button go-back-button" onClick={handleGoHome}>
+          Regresar a cursos
+        </button>
       </form>
     </div>
   );
