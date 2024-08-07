@@ -1,6 +1,7 @@
 // src/components/AddCourse.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2'; // Ensure SweetAlert2 is imported
 
 function AddCourse({ onCourseAdded }) {
   const [formData, setFormData] = useState({
@@ -20,10 +21,23 @@ function AddCourse({ onCourseAdded }) {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/courses', formData, {
-        withCredentials: true // Esto permite el uso de cookies si es necesario
+        withCredentials: true
       });
-      onCourseAdded(response.data);
+      if (onCourseAdded) {
+        onCourseAdded(response.data); // Call the function if it's provided
+      }
       setFormData({ title: '', description: '', duration: '' }); // Reset form
+
+      Swal.fire({
+        title: 'Course Added!',
+        text: 'The course has been successfully registered.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = '/home'; // Redirect to home page
+        }
+      });
     } catch (error) {
       console.error('Error creating course:', error);
     }

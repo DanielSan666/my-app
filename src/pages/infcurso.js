@@ -1,46 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import './InfCourse.css'; // Asegúrate de que el archivo CSS esté en la misma carpeta
+import './InfCourse.css';
 
 const InfCurso = () => {
   const { courseId } = useParams();
-  const navigate = useNavigate(); // Inicializa useNavigate
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [course, setCourse] = useState(null);
+  const [error, setError] = useState(null);
 
-  const course = "Sample Course"; // Reemplaza esto con los datos reales del curso
-  const amount = 40; // Reemplaza esto con la cantidad real
-
-  const handleCheckoutStripe = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post('http://localhost:5000/api/payment-stripe', { course, amount });
-      const session = response.data;
-
-      if (session && session.url) {
-        window.location.href = session.url;
-      } else {
-        throw new Error('No se pudo iniciar el pago');
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/courses/${courseId}`);
+        setCourse(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching course:', error);
+        setError('Error fetching course');
+        setLoading(false);
       }
+    };
+
+    fetchCourse();
+  }, [courseId]);
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
+  const handlePayment = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/payment-stripe', {
+        course: course.title,
+        amount: 40,
+        courseId
+      });
+      window.location.href = response.data.url;
     } catch (error) {
-      console.error('Error al iniciar el pago:', error);
-      alert('No se pudo iniciar el pago. Inténtalo de nuevo más tarde.');
-    } finally {
-      setLoading(false);
+      console.error('Error initiating Stripe payment:', error);
+      setError('Failed to initiate payment');
     }
   };
 
-  const handleGoBack = () => {
-    navigate(-1); // Regresa a la página anterior
-  };
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+  if (!course) return <p>Course not found</p>;
 
   return (
     <div className="inf-curso-container">
       <h2>Información del Curso</h2>
-      <p>Nombre del Curso: {course}</p>
-      <p className="amount">Costo del Curso: ${amount}</p>
-      <button className="button" onClick={handleCheckoutStripe} disabled={loading}>
-        {loading ? 'Processing...' : 'Pay with Stripe'}
+      <p>Nombre del Curso: {course.title}</p>
+      <p className="amount">Costo del Curso: ${course.amount}</p>
+      
+      <button className="button payment-button" onClick={handlePayment}>
+        Pagar con Stripe
       </button>
       <button className="button go-back-button" onClick={handleGoBack}>
         Regresar

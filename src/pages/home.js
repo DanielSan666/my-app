@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Menu from './components/menu'; // Adjust the path if needed
+import Menu from './components/menu'; // Ajusta el path si es necesario
 import '../menu.css';
 import '../home.css';
 
@@ -23,21 +23,20 @@ const Home = () => {
         console.error('Error fetching courses:', error);
       }
     };
-  
+
     const fetchUserProfile = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/profile', {
           withCredentials: true
         });
-        console.log('User profile:', response.data); // Verifica la estructura de los datos
-        setUserRole(response.data.role); // Set user role from profile data
+        setUserRole(response.data.role);
       } catch (error) {
         console.error('Error fetching user profile:', error);
       } finally {
         setLoading(false);
       }
     };
-  
+
     fetchCourses();
     fetchUserProfile();
   }, []);
@@ -73,7 +72,7 @@ const Home = () => {
         ) : (
           <p>No courses available.</p>
         )}
-        {userRole === 'admin' && ( // Conditionally render the button based on user role
+        {userRole === 'admin' && (
           <button onClick={handleAddCourse}>Add Course</button>
         )}
       </div>
